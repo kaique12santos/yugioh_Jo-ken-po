@@ -75,7 +75,33 @@ async function createCardImage(IdCard,fieldSide) {
         cardImage.addEventListener("click", ()=>{
             setCardsField(cardImage.getAttribute("data-id"));
         });
-
+        if (window.innerWidth <= 768){
+            cardImage.addEventListener("touchstart", () => {
+                drawSelectCard(IdCard);
+                cardImage.classList.add("hover");
+                cardImage.style.zIndex="10"; /* coloca a carta na frente */
+                
+      
+              });
+      
+              cardImage.addEventListener("touchend", () => {
+                cardImage.classList.remove("hover");
+                cardImage.style.zIndex="0"; /* retorna a carta ao normal */
+      
+              });
+              cardImage.addEventListener("touchmove", (event) => {
+                  cardImage.style.left = (event.touches[0].clientX - cardImage.offsetWidth/2)+ "px";
+      
+                  cardImage.style.top = (event.touches[0].clientY - cardImage.offsetHeight/2) + "px";
+      
+                  cardImage.style.position = "fixed";
+                  
+              })
+      
+              cardImage.addEventListener("touchcancel", () => {
+                  cardImage.style.position = "static";
+              })
+          }
         cardImage.addEventListener("mouseover",()=>{
         drawSelectCard(IdCard);
         });

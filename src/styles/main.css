@@ -188,3 +188,22 @@ button,a,img:hover,button:hover,a:hover{
     }
     
 }
+@media (hover: none) and (pointer: coarse) {  /* Aplica apenas para dispositivos touch */
+    .card {
+      transition: transform 0.2s, opacity 0.2s; /* Adiciona transição de opacidade */
+    }
+  
+    .card.hover { /* Classe para o estado de "hover" */
+      transform: scale(1.2);
+      opacity: 0.8; /* Diminui a opacidade para destacar */
+    }
+  
+  
+  
+    .card-box .card { /* Adiciona evento touchstart e touchend */
+  
+        touch-action: manipulation; /* Evita atrasos no evento touch */
+  
+      
+    }
+  }
