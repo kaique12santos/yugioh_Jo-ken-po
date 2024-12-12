@@ -62,6 +62,8 @@ async function getRandomCardID() {
 async function createCardImage(IdCard,fieldSide) {
     const cardImage= document.createElement("img");
     let imageHeight = "100px"; 
+    let isTouchInProgress = false; // Variável para controlar o estado do toque
+    let initialX, initialY;
 
     if (window.innerWidth <= 768) { 
         imageHeight = "60px"; 
@@ -76,31 +78,63 @@ async function createCardImage(IdCard,fieldSide) {
             setCardsField(cardImage.getAttribute("data-id"));
         });
         if (window.innerWidth <= 768){
-            cardImage.addEventListener("touchstart", () => {
-                drawSelectCard(IdCard);
-                cardImage.classList.add("hover");
-                cardImage.style.zIndex="10"; /* coloca a carta na frente */
-                
-      
-              });
-      
-              cardImage.addEventListener("touchend", () => {
+            cardImage.addEventListener("touchstart", (event) => {
+                if (!isTouchInProgress) {
+                    // Primeiro toque: mostrar informações da carta
+                    drawSelectCard(IdCard);
+                    cardImage.classList.add("hover");
+                    cardImage.style.zIndex = "10"; 
+        
+                    // Armazenar coordenadas iniciais para o segundo toque
+                    initialX = event.touches[0].clientX;
+                    initialY = event.touches[0].clientY;
+        
+                    isTouchInProgress = true; // Inicia o controle de toque
+        
+                } else {
+                    // Segundo toque: mover a carta para o versus
+                    cardImage.style.position = "fixed";
+        
+                    const targetX = state.fieldCards.player.offsetLeft; // Posição X do campo do jogador
+                    const targetY = state.fieldCards.player.offsetTop; // Posição Y do campo do jogador
+        
+                    // Animar o movimento (exemplo usando transition)
+                    cardImage.style.transition = "left 0.5s, top 0.5s";
+                    cardImage.style.left = targetX + "px";
+                    cardImage.style.top = targetY + "px";
+        
+                    // Após a animação, definir a carta no campo e redefinir o estado
+                    setTimeout(() => {
+                        setCardsField(cardImage.getAttribute("data-id"));
+                        cardImage.style.position = "static";
+                        cardImage.style.transition = "";
+                        cardImage.classList.remove("hover");
+                        cardImage.style.zIndex = "0";
+                        isTouchInProgress = false; // Redefine o controle de toque
+                    }, 500); // Tempo da animação
+                }
+            });
+        
+        
+            cardImage.addEventListener("touchend", () => {
+              // Se o primeiro toque tiver sido registrado, o segundo irá ativar no touchstart
+              // então não removemos o hover e zindex aqui, apenas quando a carta é jogada
+            });
+        
+            cardImage.addEventListener("touchmove", (event) => {
+                if (isTouchInProgress) { // Move apenas se o primeiro toque tiver sido registrado
+                    cardImage.style.left = (event.touches[0].clientX - cardImage.offsetWidth / 2) + "px";
+                    cardImage.style.top = (event.touches[0].clientY - cardImage.offsetHeight / 2) + "px";
+                }
+            });
+        
+            cardImage.addEventListener("touchcancel", () => {
+                cardImage.style.position = "static";
                 cardImage.classList.remove("hover");
-                cardImage.style.zIndex="0"; /* retorna a carta ao normal */
-      
-              });
-              cardImage.addEventListener("touchmove", (event) => {
-                  cardImage.style.left = (event.touches[0].clientX - cardImage.offsetWidth/2)+ "px";
-      
-                  cardImage.style.top = (event.touches[0].clientY - cardImage.offsetHeight/2) + "px";
-      
-                  cardImage.style.position = "fixed";
-                  
-              })
-      
-              cardImage.addEventListener("touchcancel", () => {
-                  cardImage.style.position = "static";
-              })
+                cardImage.style.zIndex = "0";
+        
+                isTouchInProgress = false;
+            });
           }
         cardImage.addEventListener("mouseover",()=>{
         drawSelectCard(IdCard);
