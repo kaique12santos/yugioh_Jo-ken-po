@@ -75,7 +75,6 @@ async function createCardImage(IdCard, fieldSide) {
     cardImage.classList.add("card");
 
     if (fieldSide === state.playerSides.player1) {
-        // Eventos para desktop (click e mouseover)
         cardImage.addEventListener("click", () => {
             setCardsField(cardImage.getAttribute("data-id"));
         });
@@ -85,8 +84,8 @@ async function createCardImage(IdCard, fieldSide) {
         });
 
 
-        // Eventos para mobile (touch)
-        if (window.innerWidth <= 768 || navigator.maxTouchPoints > 0) { // Verifica se é mobile (touch)
+        
+        if (window.innerWidth <= 768 || navigator.maxTouchPoints > 0) { 
             cardImage.addEventListener("touchstart", (event) => {
 
 

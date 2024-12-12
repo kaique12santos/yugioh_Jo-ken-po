@@ -188,21 +188,21 @@ button,a,img:hover,button:hover,a:hover{
     }
     
 }
-@media (hover: none) and (pointer: coarse) {  /* Aplica apenas para dispositivos touch */
+@media (hover: none) and (pointer: coarse) {  
     .card {
-      transition: transform 0.2s, opacity 0.2s; /* Adiciona transição de opacidade */
+      transition: transform 0.2s, opacity 0.2s; 
     }
   
-    .card.hover { /* Classe para o estado de "hover" */
+    .card.hover { 
       transform: scale(1.2);
-      opacity: 0.8; /* Diminui a opacidade para destacar */
+      opacity: 0.8; 
     }
   
   
   
-    .card-box .card { /* Adiciona evento touchstart e touchend */
+    .card-box .card { 
   
-        touch-action: manipulation; /* Evita atrasos no evento touch */
+        touch-action: manipulation; 
   
       
     }
