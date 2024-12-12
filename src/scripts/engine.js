@@ -61,7 +61,13 @@ async function getRandomCardID() {
 
 async function createCardImage(IdCard,fieldSide) {
     const cardImage= document.createElement("img");
-    cardImage.setAttribute("height","100px");
+    let imageHeight = "100px"; // Tamanho padrão
+
+    if (window.innerWidth <= 768) { // Verifica se a tela é menor ou igual a 768px
+        imageHeight = "60px"; // Tamanho menor para telas menores
+    }
+
+    cardImage.setAttribute("height", imageHeight);
     cardImage.setAttribute("src","./src/assets/icons/card-back.png");
     cardImage.setAttribute("data-id",IdCard);
     cardImage.classList.add("card");

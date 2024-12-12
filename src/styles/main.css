@@ -34,6 +34,9 @@ button,a,img:hover,button:hover,a:hover{
 
     );
 }
+#icon-millenium{
+    height: 100px;
+}
 .container{
     position: relative;
     z-index: 3;
@@ -133,22 +136,21 @@ button,a,img:hover,button:hover,a:hover{
 }
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
-        height: auto; /* Permite que o conteúdo defina a altura */
+        flex-direction: column; 
     }
 
     .container__left {
         width: 100%;
-        min-width: auto; /* Remove a largura mínima */
-        flex-direction: row; /* Alinha os elementos horizontalmente */
+        min-width: auto; 
+        flex-direction: row; 
         justify-content: space-around;
-        flex-wrap: wrap;       /* Permite que os elementos quebrem para a próxima linha */
-        padding: 10px;       /* Adiciona um pouco de preenchimento */
+        flex-wrap: wrap;     
+        padding: 10px;       
 
 
     }
     .card_details {
-        width: 45%;
+        width: 50%;
     }
 
     .container__right {
@@ -161,10 +163,28 @@ button,a,img:hover,button:hover,a:hover{
     .card-infield{
         height: 8rem;
         width: 5rem;
+        margin-left: 25px;
+        margin-right: 25px;
     }
     .card-box{
         height: 6rem;
 
     }
-
+    #player-field-card{
+        height: 130px;
+        width: 100px;
+        
+    }
+    #computer-field-card{
+        height: 130px;
+        width: 100px;
+        
+    }
+    #icon-millenium{
+        height: 70px;
+    }
+    .versus-top{
+        margin-top: 15px;
+    }
+    
 }
